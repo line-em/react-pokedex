@@ -6,7 +6,7 @@ import Header from './components/Header/Header.jsx';
 import PokeCard from "./components/PokeCard/PokeCard.jsx";
 import Nav from "./components/Nav/Nav.jsx";
 import styles from './App.module.css'
-import Search from "./components/Header/Search/Search.jsx";
+import Search from "./components/Search/Search.jsx";
 
 function App() {
     const [loading, setLoading] = useState(true);

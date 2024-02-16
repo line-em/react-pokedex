@@ -1,0 +1,13 @@
+.searchBox {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 1.6rem;
+}
+
+.searchBox input {
+    padding: 10px;
+    border-radius: 10px;
+    border: 1px var(--rose-2) solid;
+}

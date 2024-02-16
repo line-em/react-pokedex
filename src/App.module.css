@@ -1,15 +1,22 @@
 .section {
-  max-width: 1280px;
-  margin: 0 auto;
-  padding: 2rem;
-  text-align: center;
-  display: flex;
-  flex-direction: column;
-  gap: 5px
+    max-width: 1280px;
+    margin: 0 auto;
+    padding-top: 1.6rem;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    gap: 5px
 }
 
+@media screen and (max-width: 1280px) {
+    .section {
+        padding: 1.6rem 0.5rem 0.5rem;
+    }
+}
+
+
 main {
-  min-width: 99.4dvw;
-  height: 99.4dvh;
-  margin: 0 auto;
+    min-width: 100dvw;
+    height: 100dvh;
+    margin: 0 auto;
 }
