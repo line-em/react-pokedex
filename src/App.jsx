@@ -6,6 +6,7 @@ import Header from './components/Header/Header.jsx';
 import PokeCard from "./components/PokeCard/PokeCard.jsx";
 import Nav from "./components/Nav/Nav.jsx";
 import styles from './App.module.css'
+import Search from "./components/Header/Search/Search.jsx";
 
 function App() {
     const [loading, setLoading] = useState(true);
@@ -54,13 +55,13 @@ function App() {
         <main>
             <Header/>
             <section className={styles.section}>
+                <Search/>
                 <ul className="poke-grid">
                     {!loading && pokemon && pokemon.map((poke, i) => (
                         <PokeCard pokeData={poke} key={poke?.name + i}/>
                     ))}
                 </ul>
                 {loading && <Loading/>}
-
                 <Nav prev={prev} next={next} func={switchPage}/>
 
             </section>

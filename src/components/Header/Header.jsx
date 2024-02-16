@@ -18,9 +18,9 @@ const Header = () => {
     }, []);
     return <header>
         {banner && <img src={banner} alt="Eevee"/>}
-        <h1>React Pokedex</h1>
+        <a href="/" style={{textDecoration:"none"}}><h1>React Pokedex</h1></a>
         <ul>
-            <li>
+        <li>
                 <a href="https://react.dev" target="_blank">
                     Github
                 </a>
