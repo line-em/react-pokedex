@@ -27,10 +27,10 @@ export const refineData = async (data) => {
         name: data.name,
         types: data.types,
         stats: data.stats,
-        gif_shiny: data?.sprites?.versions["generation-v"]["black-white"]?.animated?.front_shiny,
-        gif: data?.sprites?.versions["generation-v"]["black-white"]?.animated?.front_default,
-        img: data?.sprites?.versions["generation-iv"]["heartgold-soulsilver"]?.front_default || data?.sprites?.front_default,
-        img_shiny: data?.sprites?.versions["generation-iv"]["heartgold-soulsilver"]?.front_shiny || data?.sprites?.front_shiny,
+        gif_shiny: data?.sprites?.versions["generation-v"]["black-white"]?.animated?.front_shiny || data?.sprites?.front_default,
+        gif: data?.sprites?.versions["generation-v"]["black-white"]?.animated?.front_default || data?.sprites?.front_default,
+        img: data?.sprites?.other["official-artwork"].front_default || data?.sprites?.front_default,
+        img_shiny: data?.sprites?.front_shiny,
     }
 }
 

@@ -1,16 +1,18 @@
 import React, {useEffect, useState} from 'react';
-import './App.css';
+import './App.module.css';
 import Loading from './components/Loading/Loading.jsx';
 import {getPokemonData, getPokemons} from './api/getPokemon.js';
 import Header from './components/Header/Header.jsx';
-import {typePalette} from "./typePalette.js";
+import PokeCard from "./components/PokeCard/PokeCard.jsx";
+import Nav from "./components/Nav/Nav.jsx";
+import styles from './App.module.css'
 
 function App() {
     const [loading, setLoading] = useState(true);
     const [pokemon, setPokemon] = useState([]);
     const [next, setNext] = useState('');
     const [prev, setPrev] = useState('');
-    const [currentUrl, setCurrentUrl] = useState('https://pokeapi.co/api/v2/pokemon/?limit=24');
+    const [currentUrl, setCurrentUrl] = useState('https://pokeapi.co/api/v2/pokemon/?limit=20');
 
     useEffect(() => {
         const timeout = setTimeout(() => {
@@ -22,13 +24,13 @@ function App() {
     }, [currentUrl]);
 
     const fetchData = async (url) => {
-        console.log(url);
         try {
             const newPokeList = await getPokemons(url);
             setNext(newPokeList.next);
             setPrev(newPokeList.previous);
             const pokeListWithDetails = await fetchPokemonDetails(newPokeList.results);
             setPokemon(pokeListWithDetails);
+            console.log(newPokeList)
         } catch (error) {
             console.error('Error fetching data:', error);
         } finally {
@@ -45,39 +47,22 @@ function App() {
 
     const switchPage = (direction) => {
         setLoading(true);
-
         setCurrentUrl(direction);
     };
 
     return (
         <main>
             <Header/>
-            <section>
+            <section className={styles.section}>
                 <ul className="poke-grid">
                     {!loading && pokemon && pokemon.map((poke, i) => (
-                        <li key={i} className={"poke-card"}
-                            style={{
-                                borderColor: typePalette.find((palette) => palette.name === poke.details.types[0].type.name).color,
-                                backgroundColor: `${typePalette.find((palette) => palette.name === poke.details.types[0].type.name + "-alt").color}`
-                            }}>
-                            <section>
-                                <h2
-                                    style={{textDecoration: `underline ${typePalette.find((palette) => palette.name === poke.details.types[0].type.name).color} wavy`}}>{poke.name}</h2>
-                                <p>type: {poke.details.types.map((type) => type.type.name)}</p>
-                            </section>
-                            <img src={poke.details.gif} alt=""/>
-                        </li>
+                        <PokeCard pokeData={poke} key={poke?.name + i}/>
                     ))}
                 </ul>
-                {prev && <button onClick={() => switchPage(prev)}>Prev</button>}
-                {next && <button onClick={() => switchPage(next)}>Next</button>}
                 {loading && <Loading/>}
 
-                <p>
-                    This project was built
-                    using <strong>Vite</strong>, <strong>React</strong>,
-                    and <strong>PokeAPI.</strong>
-                </p>
+                <Nav prev={prev} next={next} func={switchPage}/>
+
             </section>
         </main>
     );

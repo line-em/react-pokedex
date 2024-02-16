@@ -26,6 +26,13 @@
     animation: pulse 0.8s 0.16s infinite ease-in-out;
 }
 
+.poke-loading {
+    min-height: 50dvh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
 .poke-loading > img {
     animation-fill-mode: both;
     display: inline-block;

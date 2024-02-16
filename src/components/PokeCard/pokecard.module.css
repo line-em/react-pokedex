@@ -1,0 +1,48 @@
+.pokeCard {
+    background: var(--rose-1);
+    border-radius: 1rem;
+    padding: 1rem;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 5px;
+    border: 2px solid;
+    position: relative;
+    overflow: hidden;
+    min-height: 130px;
+}
+
+.pillBox {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 5px;
+}
+
+.pokeName {
+    color:var(--aquamarine-5);
+    text-decoration: underline var(--grey) wavy;
+}
+
+.content {
+    z-index: 2;
+    flex:1;
+    text-align: left;
+    gap: 10px;
+    display: flex;
+    flex-direction: column;
+}
+
+.pokedex {
+    font-size: 1rem;
+    color: var(--grey);
+    font-weight: 300;
+    line-height: 1;
+}
+
+.bgImage {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    opacity: 0.10;
+    right: -50px;
+}
