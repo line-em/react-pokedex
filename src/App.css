@@ -1,0 +1,15 @@
+section {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 2rem;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  gap: 10px
+}
+
+main {
+  min-width: 100dvw;
+  height: 100dvh;
+  margin: 0 auto;
+}
