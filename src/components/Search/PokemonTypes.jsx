@@ -5,7 +5,7 @@ import TypePill from "../TypePill/TypePill.jsx";
 import {useState} from "react";
 
 const PokemonTypes = ({filterPokemon}) => {
-    const [selected, setSelected] = useState(false)
+    const [selected, setSelected] = useState("reset")
 
     const handleSelected = (type) => {
         setSelected(type)
@@ -14,8 +14,9 @@ const PokemonTypes = ({filterPokemon}) => {
 
     return (<section className={styles.searchBox}>
         <TypePillBox bigger>
-            <TypePill type={"All Types"} selected={"All Types" === selected}
-                      interactive onClick={() => handleSelected("reset")}/>
+            {(selected !== "reset") &&
+                <TypePill type={"Reset"} selected={"reset" === selected}
+                          interactive onClick={() => handleSelected("reset")}/>}
             {allPokemonTypes.map((type, i) => <TypePill type={type} key={type + i}
                                                         selected={type === selected}
                                                         interactive

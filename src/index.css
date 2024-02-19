@@ -28,7 +28,7 @@ img, picture, video, canvas, svg {
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
 
-    --light-grey:#e2e2e2;
+    --light-grey: #e2e2e2;
     --grey: #3e3e3e;
     --aquamarine-1: hsl(154.47, 99.98%, 92.65%);
     --aquamarine-2: hsl(161.94, 100%, 62.84%);
@@ -75,12 +75,13 @@ body {
     place-items: center;
     min-width: 320px;
     min-height: 100vh;
+    overflow-x: hidden;
 }
 
 h1 {
     font-size: 2.5rem;
     line-height: 1.1;
-    color:var(--aquamarine-4);
+    color: var(--aquamarine-4);
     text-decoration: underline var(--rose-4) wavy;
 }
 
