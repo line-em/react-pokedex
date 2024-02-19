@@ -12,20 +12,14 @@
     min-height: 130px;
 }
 
-.pillBox {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 5px;
-}
-
 .pokeName {
-    color:var(--aquamarine-5);
+    color: var(--aquamarine-5);
     text-decoration: underline var(--grey) wavy;
 }
 
 .content {
     z-index: 2;
-    flex:1;
+    flex: 1;
     text-align: left;
     gap: 10px;
     display: flex;

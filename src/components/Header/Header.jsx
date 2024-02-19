@@ -1,6 +1,6 @@
 import './Header.css'
 import {useEffect, useState} from "react";
-import {fetchPokeBanner} from "../../api/getPokemon.js";
+import {getLogo} from "../../api/getLogo.js";
 
 const Header = () => {
     const [banner, setBanner] = useState("")
@@ -8,7 +8,7 @@ const Header = () => {
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const banner = await fetchPokeBanner()
+                const banner = await getLogo()
                 setBanner(banner)
             } catch (error) {
                 console.error('Error fetching data:', error);
@@ -18,15 +18,15 @@ const Header = () => {
     }, []);
     return <header>
         {banner && <img src={banner} alt="Eevee"/>}
-        <a href="/" style={{textDecoration:"none"}}><h1>React Pokedex</h1></a>
+        <a href="/" style={{textDecoration: "none"}}><h1>React Pokedex</h1></a>
         <ul>
-        <li>
-                <a href="https://react.dev" target="_blank">
+            <li>
+                <a href="https://github.com/line-em/react-pokedex" target="_blank">
                     Github
                 </a>
             </li>
             <li>
-                <a href="https://react.dev" target="_blank">
+                <a href="https://pokeapi.co/" target="_blank">
                     PokeAPI
                 </a>
             </li>

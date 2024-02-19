@@ -1,0 +1,9 @@
+.pillBox {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+}
+
+.bigger {
+    font-size: 1.25rem;
+}

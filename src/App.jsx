@@ -1,37 +1,48 @@
 import React, {useEffect, useState} from 'react';
 import './App.module.css';
 import Loading from './components/Loading/Loading.jsx';
-import {getPokemonData, getPokemons} from './api/getPokemon.js';
+import {
+    DEFAULT_URL,
+    getPokemonByType,
+    getPokemonData,
+    getPokemons
+} from './api/getPokemon.js';
 import Header from './components/Header/Header.jsx';
 import PokeCard from "./components/PokeCard/PokeCard.jsx";
 import Nav from "./components/Nav/Nav.jsx";
 import styles from './App.module.css'
-import Search from "./components/Search/Search.jsx";
+import PokemonTypes from "./components/Search/PokemonTypes.jsx";
 
 function App() {
     const [loading, setLoading] = useState(true);
     const [pokemon, setPokemon] = useState([]);
     const [next, setNext] = useState('');
     const [prev, setPrev] = useState('');
-    const [currentUrl, setCurrentUrl] = useState('https://pokeapi.co/api/v2/pokemon/?limit=20');
+    const [currentUrl, setCurrentUrl] = useState(DEFAULT_URL);
 
     useEffect(() => {
         const timeout = setTimeout(() => {
-            fetchData(currentUrl);
-        }, 300); // Simulate loading delay of 1 second
-
-        return () => clearTimeout(timeout); // Clear timeout on component unmount
-
+            void fetchData(currentUrl);
+        }, 250);
+        return () => clearTimeout(timeout);
     }, [currentUrl]);
 
     const fetchData = async (url) => {
         try {
-            const newPokeList = await getPokemons(url);
-            setNext(newPokeList.next);
-            setPrev(newPokeList.previous);
-            const pokeListWithDetails = await fetchPokemonDetails(newPokeList.results);
-            setPokemon(pokeListWithDetails);
-            console.log(newPokeList)
+            const pokeList = await getPokemons(url);
+            const hasPagination = pokeList.next
+            if (hasPagination) {
+                setNext(pokeList.next);
+                setPrev(pokeList.previous);
+                const pokeListWithDetails = await getPokemonDetails(pokeList.results);
+                setPokemon(pokeListWithDetails);
+            } else {
+                const pokemonByType = pokeList?.pokemon?.map((pokemon) => pokemon?.pokemon?.name)
+                let pokeListWithDetails = await Promise.all(pokemonByType.map((pokemon) => getPokemonData(pokemon)));
+                setNext("");
+                setPrev("");
+                setPokemon(pokeListWithDetails.map(details => ({details})));
+            }
         } catch (error) {
             console.error('Error fetching data:', error);
         } finally {
@@ -39,12 +50,17 @@ function App() {
         }
     };
 
-    const fetchPokemonDetails = async (pokemonList) => {
+    const getPokemonDetails = async (pokemonList) => {
         return await Promise.all(pokemonList.map(async (poke) => {
             const details = await getPokemonData(poke.name);
             return {...poke, details};
         }));
     };
+
+    const filterPokemon = (type) => {
+        setLoading(true);
+        setCurrentUrl(type === 'reset' ? DEFAULT_URL : getPokemonByType(type));
+    }
 
     const switchPage = (direction) => {
         setLoading(true);
@@ -55,15 +71,14 @@ function App() {
         <main>
             <Header/>
             <section className={styles.section}>
-                <Search/>
+                <PokemonTypes filterPokemon={filterPokemon}/>
                 <ul className="poke-grid">
-                    {!loading && pokemon && pokemon.map((poke, i) => (
-                        <PokeCard pokeData={poke} key={poke?.name + i}/>
+                    {!loading && pokemon && pokemon?.map((poke, i) => (
+                        <PokeCard pokeData={poke} key={poke?.details.name + i}/>
                     ))}
                 </ul>
                 {loading && <Loading/>}
                 <Nav prev={prev} next={next} func={switchPage}/>
-
             </section>
         </main>
     );

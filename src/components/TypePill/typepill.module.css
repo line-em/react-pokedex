@@ -1,0 +1,30 @@
+.pill {
+    font-size: 0.75em;
+    padding: 1px calc(3px + 0.2em);
+    border-radius: 20px;
+    color: white;
+    font-weight: bold;
+    border: 2px transparent solid;
+}
+
+.interactive {
+    cursor: pointer;
+}
+
+.interactive:hover:not(.selected) {
+    opacity: 0.7;
+    transition: 150ms;
+    filter: saturate(50%);
+    transform: translateY(-2px);
+}
+
+.interactive:active:not(.selected) {
+    transform: translateY(2px);
+    transition: 150ms;
+}
+
+.selected {
+    cursor: default;
+    opacity: 0.4;
+    filter: saturate(0);
+}
